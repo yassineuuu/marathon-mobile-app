@@ -112,6 +112,42 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+                updateBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+
+                        runnerId = findViewById(R.id.runnerId);
+
+
+
+                        CharSequence sexe=null;
+
+                        if (radioMale.isChecked()){
+                            sexe=radioMale.getText();
+                        }else if (radioFemale.isChecked()){
+                            sexe=radioFemale.getText();
+                        }else {
+                            sexe = "";
+                        }
+
+                        Boolean result = db.updateRunner(runnerId.getText().toString(), name.getText().toString(), email.getText().toString(), Integer.parseInt(phone.getText().toString()), sexe.toString(), date.getText().toString());
+
+
+                        if (result == true){
+                            Toast.makeText(MainActivity.this, "Done2", Toast.LENGTH_SHORT).show();
+                            setContentView(R.layout.invitation_page);
+                            runnersList = findViewById(R.id.runnersList);
+                            showRunners();
+                        }else {
+                            Toast.makeText(MainActivity.this, "NOT Done", Toast.LENGTH_SHORT).show();
+
+                        }
+
+
+                    }
+                });
+
 
             }
         });

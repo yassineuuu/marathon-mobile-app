@@ -67,8 +67,10 @@ public class DB_sqlite extends SQLiteOpenHelper {
             String name = res.getString(1);
             String email = res.getString(2);
             String phone = res.getString(3);
+            String sexe = res.getString(4);
+            String birthday = res.getString(5);
 
-            arrayList.add(id+": "+name + "\n  " + email+"\n   "+ phone +"\n   ");
+            arrayList.add(id+": "+name + "\n  " + email+"\n   "+ phone +"\n   "+sexe + "\n  " + birthday);
 
             res.moveToNext();
         }
@@ -89,9 +91,11 @@ public class DB_sqlite extends SQLiteOpenHelper {
 
         db.update("runners", contentValues, "id = ?", new String[]{id});
 
+        System.out.println("Done");
         return true;
 
     }
+
 
 
 
