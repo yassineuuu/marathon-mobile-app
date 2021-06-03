@@ -6,14 +6,20 @@ import android.graphics.Matrix;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    DB_sqlite db = new DB_sqlite(this);
 
     private ImageView btnGo = null;
 
@@ -21,9 +27,14 @@ public class MainActivity extends AppCompatActivity {
     private EditText email = null;
     private EditText phone = null;
     private EditText date = null;
+    private EditText runnerId = null;
     private RadioButton radioMale = null;
     private RadioButton radioFemale = null;
     private Button inscriptionBtn = null;
+    private Button updateBtn = null;
+    private Button deleteBtn = null;
+    private ListView runnersList;
+
 
     private TextView congrats = null;
     private TextView invit = null;
@@ -42,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
                 setContentView(R.layout.form_page);
 
                 inscriptionBtn = findViewById(R.id.inscriptionBtn);
+                deleteBtn = findViewById(R.id.deleteBtn);
+                updateBtn = findViewById(R.id.updateBtn);
 
                 name = findViewById(R.id.name);
                 email = findViewById(R.id.email);
@@ -65,13 +78,22 @@ public class MainActivity extends AppCompatActivity {
                         }
 
 
+                        Boolean result = db.insertData(name.getText().toString(), email.getText().toString(), Integer.parseInt(phone.getText().toString()), sexe.toString(), date.getText().toString());
+
+                        if (result == true){
+                            Toast.makeText(MainActivity.this, "Done2", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(MainActivity.this, "NOT Done", Toast.LENGTH_SHORT).show();
+
+                        }
+
                         setContentView(R.layout.invitation_page);
 
 
-                        congrats = findViewById(R.id.congrats);
                         invit = findViewById(R.id.invitation);
+                        runnersList = findViewById(R.id.runnersList);
+                        showRunners();
 
-                        congrats.setText("Radi ra tskhef");
                         invit.setText("Full name: "+name.getText()+"\n"+
                                         "Email: "+email.getText()+"\n"+
                                         "Phone; "+phone.getText()+"\n"+
@@ -83,9 +105,35 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+                deleteBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        delete();
+                    }
+                });
+
 
             }
         });
+    }
+
+
+    public void showRunners(){
+        ArrayList<String> runners = db.allRecords();
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, runners);
+        runnersList.setAdapter(arrayAdapter);
+    }
+
+    public void delete(){
+
+        runnerId = findViewById(R.id.runnerId);
+
+        db.deleteRunner(runnerId.getText().toString());
+
+        System.out.println("DELETED");
+
+        Toast.makeText(MainActivity.this, "Done", Toast.LENGTH_SHORT).show();
+
     }
 
 

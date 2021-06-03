@@ -8,7 +8,7 @@
     android:background="#2196F3">
 
     <TextView
-        android:id="@+id/congrats"
+        android:id="@+id/invitation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -20,21 +20,16 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.211" />
+        app:layout_constraintVertical_bias="0.052" />
 
-    <TextView
-        android:id="@+id/invitation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="TextView"
-        android:textColor="#FFFFFF"
-        android:textSize="24dp"
-        android:textStyle="bold"
+    <ListView
+        android:id="@+id/runnersList"
+        android:layout_width="381dp"
+        android:layout_height="452dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/congrats"
+        app:layout_constraintTop_toBottomOf="@+id/invitation"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
